@@ -18,15 +18,18 @@ package org.teavm.classlib.java.lang;
 import java.io.IOException;
 import org.teavm.classlib.java.io.TEOFException;
 import org.teavm.classlib.java.io.TInputStream;
+import org.teavm.interop.Import;
 
 class TConsoleInputStream extends TInputStream {
     @Override
-    public int read(byte[] b) throws IOException {
-        throw new TEOFException();
+    public int read() throws IOException {
+        return getCharStdin();
     }
 
-    @Override
-    public int read() throws IOException {
-        throw new TEOFException();
-    }
+    // TODO: figure out how to make this async, so we don't have to use
+    // sync-message. from my reading of the docs, this should be possible, but
+    // I'm hitting a confusing null pointer deref when I try, and I'm not
+    // getting a useful error message from wasm.
+    @Import(name = "getcharStdin", module = "teavmConsole")
+    public static native int getCharStdin();
 }

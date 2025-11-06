@@ -137,6 +137,9 @@ function consoleImports(imports) {
                 stdout += String.fromCharCode(c);
             }
         },
+        getcharStdin() {
+            return 0;
+        }
     };
 }
 

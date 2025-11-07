@@ -1028,10 +1028,9 @@ class JSClassProcessor {
             if (wasmGC) {
                 var optionalValue = byRef.getValue("optional");
                 if (optionalValue == null || !optionalValue.getBoolean()) {
-                    // TODO: figure out how to properly disable wasm GC
-                    // diagnostics.error(callLocation, "Method {{m0}} is marked with "
-                    //         + "@JSByRef, which is not supported in Wasm GC", method.getReference());
-                    // return false;
+                    diagnostics.error(callLocation, "Method {{m0}} is marked with "
+                            + "@JSByRef, which is not supported in Wasm GC", method.getReference());
+                    return false;
                 }
             } else {
                 returnByRef = true;
@@ -1177,10 +1176,9 @@ class JSClassProcessor {
                 } else if (wasmGC) {
                     var optionalValue = byRef.getValue("optional");
                     if (optionalValue == null || !optionalValue.getBoolean()) {
-                        // TODO: figure out how to properly disable wasm GC
-                        // diagnostics.error(callLocation, "Parameter " + (i + 1) + " of method {{m0}} is marked with "
-                        //         + "@JSByRef, which is not supported in Wasm GC", method.getReference());
-                        // return false;
+                        diagnostics.error(callLocation, "Parameter " + (i + 1) + " of method {{m0}} is marked with "
+                                + "@JSByRef, which is not supported in Wasm GC", method.getReference());
+                        return false;
                     }
                 } else {
                     byRefParams[i] = true;
